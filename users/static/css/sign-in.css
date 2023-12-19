@@ -1,0 +1,57 @@
+.content, .sign-in-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sign-in-form {
+    margin-top: 8px;
+    max-width: 40vw;
+    width: 100%;
+}
+
+.sign-in-form p {
+    gap: 10px;
+    line-height: 220%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%
+}
+
+label {
+    font-weight: bold;
+}
+
+#id_username, #id_password,
+#id_email, #id_password1, #id_password2,
+#id_first_name, #id_last_name, #id_birth_date {
+    flex: 1;
+    line-height: 150%;
+    border: none;
+    border-bottom: 1px solid #dedede;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+
+.submit-button {
+    background-color: #e84c4c;
+    color: #ffffff;
+    font-size: medium;
+    font-family: 'Inter', sans-serif;
+    border-radius: 50px;
+    padding: 0 20px 0;
+    line-height: 40px;
+    transition: all 0.2s;
+    border: none;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #d24343;
+}
+
+.sign-in-form h1 {
+    text-align: center;
+}

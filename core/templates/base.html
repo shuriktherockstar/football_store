@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ title }}. Equipper - магазин футбольных товаров</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="icon" href="{% static 'favicon.ico' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="https://emoji-css.afeld.me/emoji.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/suggestions-jquery@21.12.0/dist/js/jquery.suggestions.min.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+            integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="sidebar-left"></div>
+    <div class="main">
+        <header class="navigation-bar">
+            <div class="first-level">
+            </div>
+            <div class="second-level">
+                <div class="logo">
+                    <a href="{% url 'main_page' %}"><h1 class="h1-header">Equipper</h1></a>
+                </div>
+                <form class="search" method="get" action="{% url 'search_products' %}">
+                    {% csrf_token %}
+                    <input type="text" name="search-input" id="search-input" placeholder="Начните поиск...">
+                    <ion-icon name="close-outline" id="close-icon"></ion-icon>
+                    <button type="submit" class="search-button">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </button>
+                </form>
+                <div class="link-icons">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'my_profile' %}">
+                            <ion-icon name="person-outline"></ion-icon>
+                            <span>Профиль</span>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'sign_in' %}">
+                            <ion-icon name="person-outline"></ion-icon>
+                            <span>Войти</span>
+                        </a>
+                    {% endif %}
+                    <a href="{% url 'my_cart' %}">
+                        <ion-icon name="cart-outline"></ion-icon>
+                        <span>Корзина</span>
+                    </a>
+                    <a href="{% url 'my_orders' %}">
+                        <ion-icon name="pricetags-outline"></ion-icon>
+                        <span>Мои заказы</span>
+                    </a>
+                </div>
+            </div>
+            <div class="third-level">
+                <ul>
+                    <li><a href="{% url 'subcategory_products' subcategory_slug='futbolki' %}">Футболки</a></li>
+                    <li><a href="{% url 'subcategory_products' subcategory_slug='shorty' %}">Шорты</a></li>
+                    <li><a href="{% url 'subcategory_products' subcategory_slug='getry' %}">Гетры</a></li>
+                    <li><a href="{% url 'subcategory_products' subcategory_slug='butsy' %}">Бутсы</a></li>
+                    <li><a href="{% url 'subcategory_products' subcategory_slug='futzalki' %}">Футзалки</a></li>
+                    <li><a href="{% url 'subcategory_products' subcategory_slug='sharfy' %}">Шарфы</a></li>
+                    <li><a href="{% url 'all_categories' %}">Все категории</a></li>
+                </ul>
+            </div>
+        </header>
+
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+        <footer>
+            <h3>2023, EQUIPPER</h3>
+            <h3><b><a class="colored-link" href="{% url 'news_list' %}">Новости</a></b></h3>
+            {% if user.is_authenticated and user.is_staff %}
+                <a class="colored-link" href="{% url 'admin:index' %}"><h3>Админка</h3></a>
+            {% endif %}
+        </footer>
+    </div>
+    <div class="sidebar-right"></div>
+</div>
+
+<script src="{% static 'js/base.js' %}"></script>
+</body>
+</html>

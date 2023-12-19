@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;800&display=swap');
+
+:root {
+    --font-size: 16px;
+    --h1-size: 48px;
+    --p-margin-y: 4px;
+}
+
+html, input {
+    font-family: 'Inter', sans-serif;
+    font-size: var(--font-size);
+    color: #3b3b3b;
+}
+
+body {
+    margin: 0;
+}
+
+.wrapper {
+    display: flex;
+}
+
+.sidebar-left,
+.sidebar-right {
+    flex: 0 0 20vw;
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    margin-top: var(--p-margin-y);
+    margin-bottom: var(--p-margin-y);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', sans-serif;
+}
+
+.content {
+    width: auto;
+    box-sizing: border-box;
+    padding-bottom: 40px;
+    border-bottom: 2px solid #dedede;
+}
+
+.h1-header {
+    font-size: var(--h1-size);
+}
+
+img {
+    object-fit: contain;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+select {
+    border: 2px solid #dedede;
+    border-radius: 18px;
+    padding: 6px 12px 6px;
+    box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.1);
+    font-family: 'Inter', sans-serif;
+    font-size: medium;
+}
+
+footer {
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+
+.submit-button {
+    background-color: #e84c4c;
+    color: #ffffff;
+    font-size: medium;
+    font-family: 'Inter', sans-serif;
+    border-radius: 50px;
+    padding: 0 20px 0;
+    line-height: 40px;
+    transition: all 0.2s;
+    border: none;
+    margin-top: 5px;
+    cursor: pointer;
+    width: fit-content;
+    box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.1);
+}
+
+.submit-button:hover {
+    background-color: #d24343;
+}
+
+.colored-link {
+    color: #755d9a;
+    cursor: pointer;
+}
+
+.navigation-bar, .first-level,
+.second-level, .third-level {
+    display: flex;
+}
+
+.navigation-bar {
+    flex-direction: column;
+    width: 100%;
+}
+
+.first-level, .second-level, .third-level {
+    justify-content: space-between;
+    align-items: center;
+}
+
+.second-level {
+    height: calc(var(--h1-size) * 1.5);
+}
+
+.second-level {
+    gap: 20px;
+}
+
+.third-level ul {
+    display: flex;
+    gap: 20px;
+    padding: 2px 0 2px;
+}
+
+.third-level li {
+    list-style: none;
+    position: relative;
+}
+
+.logo, .search, .link-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo {
+    flex: 0 0 25%;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.search {
+    flex: 0 0 40%;
+    width: 100%;
+    gap: 20px;
+    position: relative;
+    height: 100%;
+}
+
+.search input {
+    padding-right: 10%;
+    width: 100%;
+    height: 80%;
+    border: none;
+    outline: none;
+    font-size: calc(var(--font-size) * 1.2);
+    position: relative;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.2s ease-in-out;
+}
+
+.search input:focus {
+    border-bottom: 2px solid #bbbbbb;
+}
+
+.search ion-icon {
+    font-size: calc(var(--font-size) * 1.5);
+    cursor: pointer;
+}
+
+#close-icon {
+    position: absolute;
+    top: 50%;
+    right: 8%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    visibility: hidden;
+}
+
+.link-icons {
+    flex: 0 0 35%;
+    gap: 20px;
+    max-width: 300px;
+}
+
+.link-icons a {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-items: center;
+    text-align: center;
+}
+
+.link-icons a::before, .third-level li::before {
+    content: "";
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    bottom: -3px;
+    background: #424242;
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out;
+    transform-origin: right;
+    border-radius: 2px;
+}
+
+.link-icons a:hover::before, .third-level li:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.link-icons ion-icon {
+    font-size: calc(var(--font-size) * 1.5);
+}
+
+.delete-button {
+    cursor: pointer !important;
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: white;
+    color: #d24343;
+    font-family: 'Inter', sans-serif;
+    font-size: medium;
+}
+
+.search-button {
+    background-color: white;
+    border: none;
+}

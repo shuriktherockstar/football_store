@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="article">
+        <h2>{{ article.title }}</h2>
+        <h5>Опубликовано <b>{{ article.date_published }}</b></h5>
+        <p class="article-text">{{ article.text }}</p>
+
+        <a class="colored-link" href="{% url 'news_list' %}"><b>Вернуться к списку новостей</b></a>
+    </div>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/article.css' %}">
+{% endblock %}

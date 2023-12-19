@@ -1,0 +1,26 @@
+{% extends 'my_profile_base.html' %}
+{% load static %}
+{% block main_info %}
+    {% for order in orders %}
+        <div class="order-info">
+            <h2>Заказ <a class="colored-link"
+                         href="{% url 'order_details' order_number=order.order_number %}">
+                {{ order.order_number }}
+            </a> от {{ order.created_at|date:"d.m.Y" }}</h2>
+            <p><b>Статус:</b> {{ order.get_status_display|lower }}</p>
+            <p><b>Общая стоимость:</b> {{ order.total_price }} ₽</p>
+            {% for order_item in order.get_order_items %}
+                <div class="order-item">
+                    <div class="product-info">
+                        <img src="{{ order_item.product_unit.product.thumbnail.url }}"
+                             alt="">
+                        <a class="colored-link"
+                           href="{% url 'product_details' product_slug=order_item.product_unit.product.slug %}">
+                            <b>{{ order_item.product_unit.product }}</b></a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+    <link rel="stylesheet" href="{% static 'css/my_orders.css' %}">
+{% endblock %}

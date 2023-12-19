@@ -1,0 +1,15 @@
+.cart-items {
+    border-right: none;
+    flex: 1;
+}
+
+.cart {
+    flex-direction: column;
+}
+
+.no-addresses {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

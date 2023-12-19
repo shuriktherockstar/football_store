@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="sign-in">
+        <form class="sign-in-form" method="post" action="{% url 'sign_up' %}">
+            <h1>Создайте учетную запись за несколько минут</h1>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="submit-button" type="submit">Зарегистрироваться</button>
+        </form>
+    </div>
+    <link rel="stylesheet" href="{% static 'css/sign_in.css' %}">
+{% endblock %}

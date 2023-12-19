@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <p class="category-path">
+        <a href="{% url 'main_page' %}">Главная</a> /</p>
+    <h1>Все категории</h1>
+    <ul class="categories">
+        {% for category in categories %}
+            <li>
+                <a href="{% url 'category_products' category_slug=category.slug %}">
+                    <h2>{{ category.name }}</h2></a>
+                {% if category.subcategory_set.all %}
+                    <ul>
+                        {% for subcategory in category.subcategory_set.all %}
+                            <li><a class="colored-link" href="{% url 'subcategory_products' subcategory_slug=subcategory.slug %}">
+                                {{ subcategory.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <link rel="stylesheet" href="{% static 'css/all_categories.css' %}">
+{% endblock %}

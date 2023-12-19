@@ -1,0 +1,15 @@
+.not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+}
+
+.not-found h1 {
+    line-height: 120%;
+}
+
+.not-found p {
+    margin: 0;
+}

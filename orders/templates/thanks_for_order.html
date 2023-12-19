@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="thanks-for-order">
+        <h2>Спасибо за заказ!
+            <i class="em em-partying_face" aria-role="presentation" aria-label="FACE WITH PARTY HORN AND PARTY HAT"></i>
+        </h2>
+        <p style="font-size: large">Номер заказа - <b>{{ order_number }}</b></p>
+        <p>На <a class="colored-link" href="{% url 'order_details' order_number=order_number %}">страницу</a> заказа</p>
+    </div>
+
+    <link rel="stylesheet" href="{% static 'css/thanks_for_order.css' %}">
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load custom_filters %}
+{% load static %}
+{% block content %}
+    <p class="product-path">
+        <a href="{% url 'category_products' category_slug=product.subcategory.category.slug %}">
+            {{ product.subcategory.category }}</a> / <a
+            href="{% url 'subcategory_products' subcategory_slug=product.subcategory.slug %}">
+        {{ product.subcategory }}
+    </a>
+    </p>
+    <h1>{{ product }}</h1>
+    <div class="product-main">
+        <div class="product-image">
+            <img src="{{ product.image.url }}" alt=""/>
+        </div>
+        <div class="product-info">
+            <h2 class="price">{{ product.price }} ₽</h2>
+            <p><b>Пол:</b> {{ product.get_sex_display|lower }}</p>
+            <p><b>Цвет:</b> {{ product.get_color_display|lower }}</p>
+            <p><b>Материал:</b> {{ product.get_material_display|lower }}</p>
+
+            {% for property in valid_properties %}
+                <p>
+                    <b>{{ property.name }}:</b>
+                    <label for="property-choice">
+                        <select name="property-choice">
+                            {% for product_unit_id, values in properties_values.items %}
+                                {% if property in values %}
+                                    {% for key, value in values.items %}
+                                        <option value="{{ value }}"
+                                                data-product-unit-id="{{ product_unit_id }}">{{ value }}</option>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </label>
+                </p>
+            {% endfor %}
+            {% if in_cart %}
+                <a class="submit-button" id="add-to-cart-btn" style="display: none;">Добавить в корзину</a>
+                <a class="submit-button in-cart" href="{% url 'my_cart' %}">В корзине</a>
+            {% else %}
+                <a class="submit-button" id="add-to-cart-btn">Добавить в корзину</a>
+                <a class="submit-button in-cart" href="{% url 'my_cart' %}" style="display: none;">В корзине</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="description">
+        <h2>Описание</h2>
+        <p class="product-description">{{ product.description }}</p>
+    </div>
+    <div class="reviews">
+        <h2>Отзывы</h2>
+        {% if reviews %}
+            {% for review in reviews %}
+                <div class="review">
+                    {% if not review.user_hidden %}
+                        <h3>{{ review.profile.first_name }}</h3>
+                    {% else %}
+                        <h3>Пользователь скрыл свои данные</h3>
+                    {% endif %}
+                    <h5>{% for _ in review.stars|times %}
+                        <i class="em em-star" aria-role="presentation" aria-label="WHITE MEDIUM STAR"></i>
+                    {% endfor %}</h5>
+                    <p>{{ review.text }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Еще никто не оставил отзывов на этот товар <i class="em em-face_with_rolling_eyes"
+                                                             aria-role="presentation"
+                                                             aria-label="FACE WITH ROLLING EYES"></i></p>
+        {% endif %}
+    </div>
+
+    <link rel="stylesheet" href="{% static 'css/product_details.css' %}">
+    <script src="{% static 'js/product_details.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <p class="subcategory-path">
+        <a href="">{{ subcategory.category }}</a> /</p>
+    <h1>{{ subcategory.name }}</h1>
+
+    <div class="subcategory-main">
+        <div class="filters-window">
+
+        </div>
+        <div class="products-window">
+            <div class="filters">
+                <form action="" method="get" id="sortForm">
+                    <p>Сортировать по:
+                        <label>
+                            <select name="sort_by" onchange="document.getElementById('sortForm').submit()">
+                                <option value="price_asc"
+                                        {% if request.GET.sort_by == "price_asc" %}selected{% endif %}>
+                                    цене по возрастанию
+                                </option>
+                                <option value="price_desc"
+                                        {% if request.GET.sort_by == "price_desc" %}selected{% endif %}>
+                                    цене по убыванию
+                                </option>
+                            </select>
+                        </label>
+                    </p>
+                </form>
+            </div>
+            <div class="product-grid">
+                {% for product in products %}
+                    <div class="product-item">
+                        <a class="colored-link" href="{% url 'product_details' product_slug=product.slug %}">
+                            <div class="product-image">
+                                <img src="{{ product.image.url }}" alt="">
+                            </div>
+                            <h4>{{ product }}</h4>
+                        </a>
+                        <p><b>Цена:</b> {{ product.price }} ₽</p>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="pagination">
+                {% if products.paginator.num_pages > 10 %}
+                    {% if products.number <= 6 %}
+                        {% for i in products.paginator.page_range|slice:":7" %}
+                            {% if i == products.number %}
+                                <span class="current-page">{{ i }}</span>
+                            {% else %}
+                                <a href="?page={{ i }}">{{ i }}</a>
+                            {% endif %}
+                        {% endfor %}
+                        <span class="three-dots">...</span>
+                        <a href="?page={{ products.paginator.num_pages }}">{{ products.paginator.num_pages }}</a>
+                    {% elif products.number >= products.paginator.num_pages|add:"-4" %}
+                        <a href="?page=1">1</a>
+                        <span class="three-dots">...</span>
+                        {% for i in products.paginator.page_range|slice:"-8:" %}
+                            {% if i == products.number %}
+                                <span class="current-page">{{ i }}</span>
+                            {% else %}
+                                <a href="?page={{ i }}">{{ i }}</a>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <a href="?page=1">1</a>
+                        <span class="three-dots">...</span>
+                        {% for i in products.paginator.page_range|slice:"{{ products.number|add:'-3' }}:{{ products.number|add:'3' }}" %}
+                            {% if i == products.number %}
+                                <span class="current-page">{{ i }}</span>
+                            {% else %}
+                                <a href="?page={{ i }}">{{ i }}</a>
+                            {% endif %}
+                        {% endfor %}
+                        <span class="three-dots">...</span>
+                        <a href="?page={{ products.paginator.num_pages }}">{{ products.paginator.num_pages }}</a>
+                    {% endif %}
+                {% else %}
+                    {% for i in products.paginator.page_range %}
+                        {% if i == products.number %}
+                            <span class="current-page">{{ i }}</span>
+                        {% else %}
+                            <a href="?page={{ i }}">{{ i }}</a>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="{% static 'css/subcategory.css' %}"/>
+{% endblock %}

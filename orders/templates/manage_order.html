@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Редактирование заказа {{ order.order_number }}</h2>
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="submit-button">Обновить статус заказа</button>
+  </form>
+{% endblock %}

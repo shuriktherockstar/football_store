@@ -1,0 +1,124 @@
+.order {
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    margin-right: 10px;
+}
+
+.review {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.address, .add-address,
+.order, .review, .logout, .edit-profile {
+    border-radius: 16px;
+    border: 2px solid #dedede;
+    padding: 4px 8px 4px;
+    box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+}
+
+.addresses {
+    display: flex;
+    flex-direction: column;
+}
+
+.address {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.orders {
+    overflow: hidden;
+}
+
+.main-info p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.order img {
+    width: 50px !important;
+}
+
+.logout {
+    width: fit-content;
+    margin-top: 8px;
+}
+
+input {
+    flex: 1;
+    line-height: 150%;
+    border: none;
+    border-bottom: 1px solid #dedede;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.popup {
+    transition: all 0.2s;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.popup-content {
+    transition: all 1s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border-radius: 24px;
+    padding: 16px 24px 16px;
+    box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#addAddressForm {
+    display: flex;
+    flex-direction: column;
+}
+
+#addAddressForm input {
+    margin: 5px 0 5px 0;
+}
+
+#addAddressForm button {
+    margin: 5px 0 5px 0;
+}
+
+.hidden {
+    display: none;
+}
+
+.show-all-button {
+    width: fit-content;
+    background-color: white;
+    border: none;
+    font-family: 'Inter', sans-serif;
+    font-size: medium;
+    margin-bottom: 8px;
+}

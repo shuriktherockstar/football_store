@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% load static %}
+    <div class="not-found">
+        <h1 style="font-size: 120px;">404</h1>
+        <p style="font-size: 24px">Мы совсем ничего не нашли по вашему запросу
+            <i class="em em-cry" aria-role="presentation" aria-label="CRYING FACE"></i></p>
+        <a class="colored-link" style="font-size: 18px" href="{% url 'main_page' %}"><b>Вернуться на главную</b></a>
+    </div>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/not_found.css' %}">
+{% endblock %}

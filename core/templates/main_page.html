@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="carousel-container">
+        <div class="carousel-slide">
+            <a href="{% url 'subcategory_products' subcategory_slug='butsy' %}">
+                <img class="carousel-image" src="/media/carousel_images/1.png" alt="Image 1">
+                <div class="caption">
+                    <h1>Новые модели бутс<br>в нашем магазине</h1>
+                </div>
+            </a>
+        </div>
+        <div class="carousel-slide">
+            <a href="{% url 'subcategory_products' subcategory_slug='futbolki' %}">
+                <img class="carousel-image" src="/media/carousel_images/2.png" alt="Image 2">
+                <div class="caption">
+                    <h1>Футболки сезона 23/24<br>уже в наличии</h1>
+                </div>
+            </a>
+        </div>
+        <div class="carousel-slide">
+            <a href="{% url 'subcategory_products' subcategory_slug='shorty' %}">
+                <img class="carousel-image" src="/media/carousel_images/3.png" alt="Image 3">
+                <div class="caption">
+                    <h1>Нужны шорты<br>любимого клуба?</h1>
+                </div>
+            </a>
+        </div>
+    </div>
+    <h1>Последние поступления</h1>
+    <div class="latest-products">
+        {% for product in latest_products %}
+            <div class="product-item">
+                <a class="colored-link" href="{% url 'product_details' product_slug=product.slug %}">
+                    <div class="product-image">
+                        <img src="{{ product.image.url }}" alt="">
+                    </div>
+                    <h4>{{ product }}</h4>
+                </a>
+                <p><b>Цена:</b> {{ product.price }} ₽</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <h1 >Самые популярные товары</h1>
+    <div class="most-reviewed-products">
+        {% for product in most_ordered_products %}
+            <div class="product-item">
+                <a class="colored-link" href="{% url 'product_details' product_slug=product.slug %}">
+                    <div class="product-image">
+                        <img src="{{ product.image.url }}" alt="">
+                    </div>
+                    <h4>{{ product }}</h4>
+                </a>
+                <p><i class="em em-shopping_trolley" aria-role="presentation" aria-label="SHOPPING TROLLEY"></i>
+                    <b>Заказов:</b> {{ product.num_orders }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <h1 >Больше всего отзывов</h1>
+    <div class="most-reviewed-products">
+        {% for product in most_reviewed_products %}
+            <div class="product-item">
+                <a class="colored-link" href="{% url 'product_details' product_slug=product.slug %}">
+                    <div class="product-image">
+                        <img src="{{ product.image.url }}" alt="">
+                    </div>
+                    <h4>{{ product }}</h4>
+                </a>
+                <p><i class="em em-star-struck" aria-role="presentation" aria-label="GRINNING FACE WITH STAR EYES"></i>
+                    <b>Отзывов:</b> {{ product.num_reviews }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <script src="{% static 'js/main_page.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/main_page.css' %}">
+{% endblock %}

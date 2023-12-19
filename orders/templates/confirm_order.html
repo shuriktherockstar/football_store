@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    {% if not addresses %}
+        <div class="no-addresses">
+            <h2>Вы еще не добавили адреса для доставки
+                <i class="em em-truck" aria-role="presentation" aria-label="DELIVERY TRUCK"></i></h2>
+            <p>Пожалуйста, <a class="colored-link" href="{% url 'my_profile' %}">добавьте их</a> перед заказом</p>
+        </div>
+    {% else %}
+        <h1>{{ title }}</h1>
+        <h3>Ваши товары:</h3>
+        <div class="cart">
+            <div class="cart-items">
+                {% for cart_item in cart_items %}
+                    <div class="cart-item fit-width">
+                        <div class="item-info">
+                            <img src="{{ cart_item.product_unit.product.thumbnail.url }}" alt="">
+                            <div class="product-properties">
+                                <p><b>{{ cart_item.product_unit.product }}</b></p>
+                                <p>{{ cart_item.product_properties_string }}</p>
+                                <p><b>Количество: </b>{{ cart_item.quantity }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <form method="post" action="{% url 'create_order' %}">
+                {% csrf_token %}
+                <label for="address"><h3>Выберите адрес:</h3></label>
+                <select id="address" name="address">
+                    {% for address in addresses %}
+                        <option value="{{ address.id }}">{{ address.address }}</option>
+                    {% endfor %}
+                </select>
+                <p style="font-size: large"><b>Товаров на сумму</b> {{ total_price }} ₽</p>
+                <button type="submit" class="submit-button">Подтвердить заказ</button>
+            </form>
+        </div>
+    {% endif %}
+
+    <link rel="stylesheet" href="{% static 'css/my_cart.css' %}">
+    <link rel="stylesheet" href="{% static 'css/confirm_order.css' %}">
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'my_profile_base.html' %}
+{% load custom_filters %}
+{% load static %}
+{% block main_info %}
+    {% if reviews %}
+        {% for review in reviews %}
+            <div class="review">
+                <img src="{{ review.product.thumbnail.url }}"
+                     alt="Не удалось загрузить изображение">
+                <div class="review-info">
+                    <a href="{% url 'product_details' product_slug=review.product.slug %}"
+                       class="colored-link"><b>{{ review.product }}</b></a>
+                    <h5>{% for _ in review.stars|times %}
+                        <i class="em em-star" aria-role="presentation" aria-label="WHITE MEDIUM STAR"></i>
+                    {% endfor %}</h5>
+                    <p>{{ review.text }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Вы еще не оставили отзывов</p>
+    {% endif %}
+    <link rel="stylesheet" href="{% static 'css/my_reviews.css' %}">
+{% endblock %}

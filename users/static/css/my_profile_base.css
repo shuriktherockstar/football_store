@@ -1,0 +1,38 @@
+.content {
+    display: flex;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    padding: 30px 8px 8px 0;
+    align-items: center;
+    text-align: center;
+    flex: 1 1 30%;
+    border-right: 2px solid #dedede;
+    border-radius: 2px;
+}
+
+.main-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 70%;
+    margin-left: 12px;
+    max-width: 70%;
+}
+
+.user-info ion-icon {
+    font-size: 120px;
+}
+
+.main-info ul {
+    display: flex;
+    gap: 8px;
+    padding: 2px 0 2px;
+    margin: 0;
+}
+
+.main-info li {
+    list-style: none;
+    position: relative;
+}

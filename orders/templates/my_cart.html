@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    {% csrf_token %}
+    {% if not cart_items %}
+        <div class="cart-empty">
+            <h2>В вашей корзине совсем нет товаров
+                <i class="em em-cry" aria-role="presentation" aria-label="CRYING FACE"></i></h2>
+            <a class="colored-link" href="{% url 'main_page' %}">За покупками</a>
+        </div>
+    {% else %}
+        <h1>{{ title }}</h1>
+        <div class="cart">
+            <div class="cart-items">
+                {% for cart_item in cart_items %}
+                    <div class="cart-item">
+                        <div class="item-line">
+                            <div class="item-info">
+                                <img src="{{ cart_item.product_unit.product.thumbnail.url }}" alt="">
+                                <div class="product-properties">
+                                    <a href="{% url 'product_details' product_slug=cart_item.product_unit.product.slug %}">
+                                        <b>{{ cart_item.product_unit.product }}</b>
+                                    </a>
+                                    <p>{{ cart_item.product_properties_string }}</p>
+                                    <p><b>В наличии: </b>{{ cart_item.product_unit.quantity }}</p>
+                                </div>
+                            </div>
+                            <div class="item-counter-and-delete">
+                                <div class="item-counter">
+                                    <button class="decrement-button">-</button>
+                                    <span class="quantity-value"
+                                          data-cart-item-id="{{ cart_item.id }}"
+                                          data-product-quantity="{{ cart_item.product_unit.quantity }}">
+                                        <b class="quantity-number">{{ cart_item.quantity }}</b>
+                                    </span>
+                                    <button class="increment-button">+
+                                    </button>
+                                </div>
+                                <div class="delete-line">
+                                    <button data-cart-item-id="{{ cart_item.id }}"
+                                            class="delete-button">
+                                        <ion-icon name="trash-outline"></ion-icon>&nbsp;Удалить
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="cart-info">
+                <a href="{% url 'confirm_order' %}" class="buy-button">Оформить заказ</a>
+                <p>Товаров на сумму <b class="total-price">{{ total_price }}</b> ₽</p>
+            </div>
+        </div>
+    {% endif %}
+    <link rel="stylesheet" href="{% static 'css/my_cart.css' %}">
+    <script src="{% static 'js/my_cart.js' %}"></script>
+{% endblock %}

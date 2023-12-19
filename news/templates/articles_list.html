@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+    <h1>Новости</h1>
+    {% for article in articles %}
+        <div class="article">
+            <h3 class="colored-link"><a href="{% url 'article' article_slug=article.slug %}">{{ article.title }}</a>
+            </h3>
+            <h5>Опубликовано <b>{{ article.date_published }}</b></h5>
+            <p>{{ article.text|truncatewords:20 }}</p>
+        </div>
+    {% endfor %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/article.css' %}">
+{% endblock %}

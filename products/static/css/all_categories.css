@@ -1,0 +1,12 @@
+.content li, .content ul {
+    list-style-type: none;
+}
+
+.categories {
+    margin: 0;
+    padding-left: 12px;
+}
+
+.category-path {
+    color: #bbbbbb;
+}

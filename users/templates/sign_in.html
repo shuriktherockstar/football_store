@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    <div class="sign-in">
+        <form class="sign-in-form" method="post" action="{% url 'sign_in' %}">
+            <h1>Рады видеть вас снова</h1>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="submit-button" type="submit">Войти</button>
+            <p>Нет аккаунта?<a class="colored-link" href="{% url 'sign_up' %}"><b>Зарегистрируйтесь</b></a></p>
+        </form>
+    </div>
+    <link rel="stylesheet" href="{% static 'css/sign_in.css' %}">
+{% endblock %}

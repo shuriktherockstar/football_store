@@ -1,0 +1,95 @@
+{% extends 'my_profile_base.html' %}
+{% load custom_filters %}
+{% load static %}
+
+{% block main_info %}
+    {% csrf_token %}
+    <div class="addresses">
+        <h2>Адреса</h2>
+        {% if addresses %}
+            <div class="addresses">
+                <div class="address">
+                    {{ addresses.0.address }}
+                    <button data-address-id="{{ addresses.0.id }}" class="delete-button">
+                        <ion-icon name="trash-outline"></ion-icon>
+                    </button>
+                </div>
+
+                {% for address in addresses|slice:"1:" %}
+                    <div class="address hidden">
+                        {{ address.address }}
+                        <button data-address-id="{{ address.id }}" class="delete-button">
+                            <ion-icon name="trash-outline"></ion-icon>
+                        </button>
+                    </div>
+                {% endfor %}
+
+                {% if addresses|length > 1 %}
+                    <button id="showAllButton" class="show-all-button colored-link">&#8595; Показать все</button>
+                {% endif %}
+            </div>
+        {% else %}
+            <p style="margin-bottom: 4px">Вы еще не добавили ни одного адреса</p>
+        {% endif %}
+        <a id="showPopupBtn" class="add-address colored-link"><b>Добавить адрес</b></a>
+
+        <div class="popup" id="addAddressPopup">
+            <div class="popup-content">
+                <span class="close-btn" onclick="closePopup()">&times;</span>
+                <form id="addAddressForm" method="post" action="{% url 'add_address' %}">
+                    {% csrf_token %}
+                    <label for="address"><h2>Добавить адрес:</h2></label>
+                    <input id="address" name="address" type="text"/>
+                    <button class="submit-button" type="submit">Добавить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="orders">
+        <h2>Последний заказ</h2>
+        {% if latest_order %}
+            <div class="order">
+                <img src="{{ latest_order.order_items.0.product_unit.product.thumbnail.url }}"
+                     alt="Не удалось загрузить изображение">
+                <div class="order-info">
+                    <a class="order-number colored-link"
+                       href="{% url 'order_details' order_number=latest_order.order.order_number %}">
+                        <b>{{ latest_order.order.order_number }}</b></a>
+                    <p class="order-price">На сумму <b>{{ latest_order.order.total_price }} ₽</b></p>
+                    <p class="order-status"><b>{{ latest_order.order.get_status_display }}</b></p>
+                </div>
+            </div>
+            <h4><a class="colored-link" href="{% url 'my_orders' %}"><b>Смотреть все заказы</b></a></h4>
+        {% else %}
+            <p>Вы еще ничего не заказали</p>
+            <a class="colored-link" href="{% url 'main_page' %}"><b>К покупкам</b></a>
+        {% endif %}
+    </div>
+    <div class="reviews">
+        <h2>Последний отзыв</h2>
+        {% if latest_review %}
+            <div class="review">
+                <img src="{{ latest_review.product.thumbnail.url }}"
+                     alt="Не удалось загрузить изображение">
+                <div class="review-info">
+                    <a href="{% url 'product_details' product_slug=latest_review.product.slug %}"
+                       class="colored-link"><b>{{ latest_review.product }}</b></a>
+                    <h5>{% for _ in latest_review.stars|times %}
+                        <i class="em em-star" aria-role="presentation" aria-label="WHITE MEDIUM STAR"></i>
+                    {% endfor %}</h5>
+                    <p>{{ latest_review.text|truncatewords:20 }}</p>
+                </div>
+            </div>
+            <h4><a class="colored-link" href="{% url 'my_reviews' %}"><b>Читать все отзывы</b></a></h4>
+        {% else %}
+            <p>Вы еще не оставили отзывов</p>
+        {% endif %}
+    </div>
+
+    <div class="logout">
+        <a href="{% url 'logout' %}"><b>Выйти из профиля</b></a>
+    </div>
+
+    <link rel="stylesheet" href="{% static 'css/my_profile.css' %}">
+    <script src="{% static 'js/my_profile.js' %}"></script>
+{% endblock %}
