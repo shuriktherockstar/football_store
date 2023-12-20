@@ -36,15 +36,15 @@ urlpatterns = [
     path('order/<str:order_number>/', order_details, name='order_details'),
     path('my_reviews', my_reviews, name='my_reviews'),
 
+    path('all_orders/', all_orders, name='all_orders'),
+    path('manage_order/<str:order_number>', manage_order, name='manage_order'),
+
     path('all_categories', all_categories, name='all_categories'),
-    path('category/<slug:category_slug>', category_products, name='category_products'),
+    path('categories/<slug:category_slug>', category_products, name='category_products'),
     path('subcategories/<slug:subcategory_slug>/', subcategory_products, name='subcategory_products'),
     path('search_products/', search_products, name='search_products'),
     path('products/<slug:product_slug>/', product_details, name='product_details'),
     path('add_to_cart/', add_to_cart, name='add_to_cart'),
-
-    path('all_orders/', all_orders, name='all_orders'),
-    path('manage_order/<str:order_number>', manage_order, name='manage_order'),
 
     re_path(r'^.*/$', not_found, name='not_found')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
