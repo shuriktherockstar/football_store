@@ -27,6 +27,7 @@ def article(request, article_slug):
                   template_name='article.html',
                   context=context)
 
+
 def add_article(request):
     if not request.user.is_authenticated or not request.user.is_staff:
         return redirect('main_page')
@@ -37,7 +38,7 @@ def add_article(request):
             new_article = form.save(commit=False)
             new_article.author = request.user
             new_article.save()
-            return redirect('news')
+            return redirect('news_list')
         else:
             messages.error(request, 'Ошибка в форме. Пожалуйста, проверьте введенные данные.')
     else:
