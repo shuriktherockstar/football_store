@@ -3,6 +3,9 @@
 
 {% block content %}
     <h1>Новости</h1>
+    {% if user.is_superuser %}
+        <a href="{% url 'add_article' %}" class="colored-link"><b>Добавить новость</b></a>
+    {% endif %}
     {% for article in articles %}
         <div class="article">
             <h3 class="colored-link"><a href="{% url 'article' article_slug=article.slug %}">{{ article.title }}</a>
