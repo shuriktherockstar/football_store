@@ -74,6 +74,8 @@ class Order(models.Model):
         if not self.order_number:
             self.order_number = self.generate_order_number()
         if not self.total_price:
+            self.total_price = 0
+        else:
             self.total_price = self.calculate_total_price()
         super().save(*args, **kwargs)
 

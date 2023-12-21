@@ -62,7 +62,6 @@ def delete_cart_item(request):
         cart_item_id = int(request.POST.get('cart_item_id'))
         cart_item = get_object_or_404(CartItem, id=cart_item_id)
         cart_item.delete()
-        print('Удалено')
 
         cart = cart_item.cart
         cart.calculate_total_price()
@@ -118,6 +117,8 @@ def create_order(request):
             status=OrderStatus.accepted.value,
             shipping_address=selected_address
         )
+
+        order.save()
 
         for cart_item in cart_items:
             OrderItem.objects.create(
